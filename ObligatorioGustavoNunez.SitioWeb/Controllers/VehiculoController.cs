@@ -79,7 +79,7 @@ namespace ObligatorioGustavoNunez.SitioWeb.Controllers
                 }
 
 
-        //GET : Vehiculos/Delete/
+        //GET: Vehiculos/Delete/
 
     public async Task<IActionResult> Delete(int? id)
         {
