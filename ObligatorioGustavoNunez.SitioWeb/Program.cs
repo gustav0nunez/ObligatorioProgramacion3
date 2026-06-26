@@ -1,4 +1,5 @@
 using System;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using ObligatorioGustavoNunez.Dominio.Repositories;
 using ObligatorioGustavoNunez.Persistencia.Data;
@@ -12,6 +13,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MiConexion")));
 builder.Services.AddScoped<IVehiculoRepository, VehiculoRepository>();
 
+
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Auth/Login";
+    });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -26,6 +34,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseAuthorization();
 
