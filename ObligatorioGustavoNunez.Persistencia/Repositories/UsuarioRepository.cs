@@ -10,54 +10,52 @@ using System.Threading.Tasks;
 
 namespace ObligatorioGustavoNunez.Persistencia.Repositories
 {
-    public class UsarioRepository : IUsuarioRepository
+    public class UsuarioRepository : IUsuarioRepository
     {
 
 
         private readonly AppDbContext dbContext;
 
-        public UsarioRepository(AppDbContext context)
+        public UsuarioRepository(AppDbContext context)
         {
             dbContext = context;
         }
 
-        public async Task<Vehiculo> Eliminar(int id)
+        public Task<Usuario> Eliminar(int id)
         {
-            var vehiculo = await dbContext.Vehiculos.FindAsync(id);
-            if (vehiculo != null)
-            {
-                dbContext.Vehiculos.Remove(vehiculo);
-                await dbContext.SaveChangesAsync();
-            }
-            return vehiculo;
+            throw new NotImplementedException();
         }
 
-        public async Task<Vehiculo> Guardar(Vehiculo v)
+        public Task<Usuario> Guardar(Usuario v)
         {
-            dbContext.Vehiculos.Add(v);
+            throw new NotImplementedException();
+        }
+
+        public Task<Usuario> Modificar(Usuario v)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Usuario> ObtenerPorId(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Usuario>> ObtenerTodos()
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Usuario> ValidarLogin(string email, string contraseña)
+        {
+            return await dbContext.Usuarios
+                .FirstOrDefaultAsync(u => u.Email == email && u.Contraseña == contraseña);
+        }
+
+        public async Task AgregarUsuario(Usuario usuario)
+        {
+            dbContext.Usuarios.Add(usuario);
             await dbContext.SaveChangesAsync();
-            return v;
-        }
-
-        public async Task<Vehiculo> Modificar(Vehiculo v)
-        {
-            dbContext.Entry(v).State = EntityState.Modified;
-            await dbContext.SaveChangesAsync();
-            return v;
-        }
-
-        public async Task<Vehiculo> ObtenerPorId(int id)
-        {
-            return await dbContext.Vehiculos
-                .Include(v => v.Matricula)
-                .FirstOrDefaultAsync(v => v.Id == id);
-        }
-
-        public async Task<List<Vehiculo>> ObtenerTodos()
-        {
-            return await dbContext.Vehiculos
-                .Include(v => v.Matricula)
-                .ToListAsync();
         }
     }
 }

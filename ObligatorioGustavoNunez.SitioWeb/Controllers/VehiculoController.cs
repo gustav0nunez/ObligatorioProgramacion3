@@ -3,9 +3,11 @@ using ObligatorioGustavoNunez.Dominio;
 using ObligatorioGustavoNunez.Dominio.Entities;
 using ObligatorioGustavoNunez.Dominio.Repositories;
 using System.Runtime.InteropServices;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ObligatorioGustavoNunez.SitioWeb.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     public class VehiculoController : Controller
     {
 

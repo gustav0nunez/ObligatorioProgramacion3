@@ -1,0 +1,51 @@
+﻿@model ObligatorioGustavoNunez.Dominio.Entities.Usuario
+
+@{
+    ViewData["Title"] = "Registro de Usuario";
+}
+
+<h2>Registrarse</h2>
+
+<form asp-action="Registrar" method="post">
+    <div class="form-group mt-2">
+        <label>Nombre</label>
+        <input asp-for="Nombre" class="form-control" required />
+    </div>
+
+    <div class="form-group mt-2">
+        <label>Apellido</label>
+        <input asp-for="Apellido" class="form-control" required />
+    </div>
+
+    <div class="form-group mt-2">
+        <label>Documento de Identidad</label>
+        <input asp-for="Documento" class="form-control" required />
+    </div>
+
+    <div class="form-group mt-2">
+        <label>Sexo</label>
+        <select asp-for="Sexo" class="form-control" required>
+            <option value="">Seleccione...</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+            <option value="Otro">Otro</option>
+        </select>
+    </div>
+
+    <div class="form-group mt-2">
+        <label>País</label>
+        <input asp-for="Pais" class="form-control" required />
+    </div>
+
+    <div class="form-group mt-2">
+        <label>Email (será tu usuario)</label>
+        <input asp-for="Email" type="email" class="form-control" required />
+    </div>
+
+    <div class="form-group mt-2">
+        <label>Contraseña</label>
+        <input asp-for="Contraseña" type="password" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-success mt-3">Crear cuenta</button>
+</form>
