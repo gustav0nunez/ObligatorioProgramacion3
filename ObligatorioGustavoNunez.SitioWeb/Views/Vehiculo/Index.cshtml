@@ -1,0 +1,29 @@
+﻿@model IEnumerable<ObligatorioGustavoNunez.Dominio.Entities.Vehiculo>
+
+<h2>Flota de Vehículos</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Matrícula</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Capacidad</th>
+            <th>Precio Diario</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in Model)
+        {
+            <tr>
+                <td>@v.Matricula</td>
+                <td>@v.Marca</td>
+                <td>@v.Modelo</td>
+                <td>@v.CapacidadPasajeros</td>
+                <td>$@v.PrecioDiario</td>
+                <td>@v.Estado</td>
+            </tr>
+        }
+    </tbody>
+</table>
