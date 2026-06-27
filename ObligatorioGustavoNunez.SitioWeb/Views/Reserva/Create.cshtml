@@ -1,0 +1,34 @@
+﻿@model ObligatorioGustavoNunez.Dominio.Entities.Reserva
+
+<h2>Crear Reserva</h2>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group mb-3">
+        <label asp-for="UsuarioId" class="control-label">Usuario</label>
+        <select asp-for="UsuarioId" class="form-control" asp-items="ViewBag.Usuarios"></select>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="VehiculoMatricula" class="control-label">Vehículo</label>
+        <select asp-for="VehiculoMatricula" class="form-control" asp-items="ViewBag.Vehiculos"></select>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="FechaInicio" class="control-label">Fecha de Inicio</label>
+        <input asp-for="FechaInicio" type="date" class="form-control" />
+        <span asp-validation-for="FechaInicio" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="FechaFin" class="control-label">Fecha de Fin</label>
+        <input asp-for="FechaFin" type="date" class="form-control" />
+        <span asp-validation-for="FechaFin" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-4">
+        <input type="submit" value="Guardar Reserva" class="btn btn-success" />
+        <a asp-action="Index" class="btn btn-secondary">Volver al listado</a>
+    </div>
+</form>

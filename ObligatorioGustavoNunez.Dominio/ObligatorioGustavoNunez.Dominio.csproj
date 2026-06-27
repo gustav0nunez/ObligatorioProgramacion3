@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Services\UsuarioService.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.28" />
   </ItemGroup>
 

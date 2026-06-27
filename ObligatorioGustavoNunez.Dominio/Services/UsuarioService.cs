@@ -10,36 +10,19 @@ namespace ObligatorioGustavoNunez.Dominio.Services
 {
     public class UsuarioService
     {
-        private readonly IUsuarioRepository usuarioRepository;
+        private readonly IUsuarioRepository _usuarioRepo;
 
-        public UsuarioService(IUsuarioRepository repository)
+        public UsuarioService(IUsuarioRepository usuarioRepo)
         {
-            usuarioRepository = repository;
+            _usuarioRepo = usuarioRepo;
         }
 
-        public async Task<Vehiculo> AgregarUsuario(Usuario usuario)
-        {
-            return await usuarioRepository.Guardar(usuario);
-        }
-
-        public async Task<Vehiculo> ModificarVehiculo(Usuario usuario)
-        {
-            return await usuarioRepository.Modificar(usuario);
-        }
-
-        public async Task<Usuario> EliminarUsuario(int id)
-        {
-            return await usuarioRepository.Eliminar(id);
-        }
-
-        public async Task<Usuario> ObtenerUsuario(int id)
-        {
-            return await usuarioRepository.ObtenerPorId(id);
-        }
-
-        public async Task<List<Usuario>> ObtenerUsuarios()
-        {
-            return await usuarioRepository.ObtenerTodos();
-        }
+        public async Task<Usuario> Guardar(Usuario v) => await _usuarioRepo.Guardar(v);
+        public async Task<Usuario> Modificar(Usuario v) => await _usuarioRepo.Modificar(v);
+        public async Task<Usuario> Eliminar(int id) => await _usuarioRepo.Eliminar(id);
+        public async Task<Usuario> ObtenerPorId(int id) => await _usuarioRepo.ObtenerPorId(id);
+        public async Task<List<Usuario>> ObtenerTodos() => await _usuarioRepo.ObtenerTodos();
+        public async Task<Usuario> ValidarLogin(string email, string contraseña) => await _usuarioRepo.ValidarLogin(email, contraseña);
+        public async Task AgregarUsuario(Usuario usuario) => await _usuarioRepo.AgregarUsuario(usuario);
     }
 }

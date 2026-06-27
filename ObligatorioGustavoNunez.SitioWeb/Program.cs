@@ -2,6 +2,7 @@ using System;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using ObligatorioGustavoNunez.Dominio.Repositories;
+using ObligatorioGustavoNunez.Dominio.Services;
 using ObligatorioGustavoNunez.Persistencia.Data;
 using ObligatorioGustavoNunez.Persistencia.Repositories;
 
@@ -12,7 +13,11 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MiConexion")));
 builder.Services.AddScoped<IVehiculoRepository, VehiculoRepository>();
-builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>(); 
+builder.Services.AddScoped<VehiculoService>();
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<UsuarioService>();
+builder.Services.AddScoped<IReservaRepository, ReservaRepository>();
+builder.Services.AddScoped<ReservaService>();
 
 
 

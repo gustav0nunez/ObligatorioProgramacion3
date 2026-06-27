@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ObligatorioGustavoNunez.Dominio.Entities.Reserva>
+
+<h2>Listado de Reservas</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Nueva Reserva</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Vehículo</th>
+            <th>Usuario</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Vehiculo?.Matricula</td>
+                <td>@item.Usuario?.Email</td>
+                <td>@item.FechaInicio.ToShortDateString()</td>
+                <td>@item.FechaFin.ToShortDateString()</td>
+                <td>@item.Estado</td>
+            </tr>
+        }
+    </tbody>
+</table>

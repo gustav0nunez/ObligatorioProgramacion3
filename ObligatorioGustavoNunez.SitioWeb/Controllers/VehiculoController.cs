@@ -4,6 +4,7 @@ using ObligatorioGustavoNunez.Dominio.Entities;
 using ObligatorioGustavoNunez.Dominio.Repositories;
 using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Authorization;
+using ObligatorioGustavoNunez.Dominio.Services;
 
 namespace ObligatorioGustavoNunez.SitioWeb.Controllers
 {
@@ -11,18 +12,18 @@ namespace ObligatorioGustavoNunez.SitioWeb.Controllers
     public class VehiculoController : Controller
     {
 
-        private readonly IVehiculoRepository _vehiculoRepo;
+        private readonly VehiculoService _vehiculoService;
 
 
-            public VehiculoController(IVehiculoRepository vehiculoRepo)
+            public VehiculoController(VehiculoService vehiculoService)
         {
-            _vehiculoRepo = vehiculoRepo;
+            _vehiculoService = vehiculoService;
         }
 
         // GET: Vehiculos
         public async Task <IActionResult> Index()
         {
-            var vehiculos = await _vehiculoRepo.ObtenerTodos();
+            var vehiculos = await _vehiculoService.ObtenerTodos();
             return View(vehiculos);
         }
 
@@ -38,7 +39,7 @@ namespace ObligatorioGustavoNunez.SitioWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _vehiculoRepo.Guardar(vehiculo);
+                await _vehiculoService.AgregarVehiculo(vehiculo);
                 return RedirectToAction(nameof(Index));
             }
             return View(vehiculo);
@@ -54,7 +55,7 @@ namespace ObligatorioGustavoNunez.SitioWeb.Controllers
                 return NotFound();
             }
 
-            var vehiculo = await _vehiculoRepo.ObtenerPorId(id.Value);
+            var vehiculo = await _vehiculoService.ObtenerPorId(id.Value);
             if (vehiculo == null)
             {
                 return NotFound();
@@ -73,7 +74,7 @@ namespace ObligatorioGustavoNunez.SitioWeb.Controllers
             }
 
             if (ModelState.IsValid) {
-                await _vehiculoRepo.Modificar(vehiculo);
+                await _vehiculoService.ModificarVehiculo(vehiculo);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -90,7 +91,7 @@ namespace ObligatorioGustavoNunez.SitioWeb.Controllers
                 return NotFound();          
             }
 
-            var vehiculo = await _vehiculoRepo.ObtenerPorId(id.Value);
+            var vehiculo = await _vehiculoService.ObtenerPorId(id.Value);
             if (vehiculo == null)
             {
                 return NotFound(); 
@@ -105,7 +106,7 @@ namespace ObligatorioGustavoNunez.SitioWeb.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task <IActionResult> DeleteConfirmed(int id)
         {
-            await _vehiculoRepo.Eliminar(id);
+            await _vehiculoService.EliminarVehiculo(id);
             return RedirectToAction(nameof(Index));
         }
     }

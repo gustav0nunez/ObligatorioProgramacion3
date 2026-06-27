@@ -4,17 +4,18 @@ using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using ObligatorioGustavoNunez.Dominio.Repositories;
 using ObligatorioGustavoNunez.Dominio.Entities;
+using ObligatorioGustavoNunez.Dominio.Services;
 
 namespace ObligatorioGustavoNunez.SitioWeb.Controllers
 {
     public class AuthController : Controller
     {
 
-        private readonly IUsuarioRepository _usuarioRepo;
+        private readonly UsuarioService _usuarioService;
 
-        public AuthController(IUsuarioRepository usuarioRepo)
+        public AuthController(UsuarioService usuarioServi)
         {
-            _usuarioRepo = usuarioRepo;
+            _usuarioService = usuarioServi;
         }
 
         // GET: Auth/Login
@@ -27,7 +28,7 @@ namespace ObligatorioGustavoNunez.SitioWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(string email, string contraseña)
         {
-            var usuario = await _usuarioRepo.ValidarLogin(email, contraseña);
+            var usuario = await _usuarioService.ValidarLogin(email, contraseña);
 
             if (usuario == null)
             {
@@ -69,7 +70,7 @@ namespace ObligatorioGustavoNunez.SitioWeb.Controllers
                 return View(usuario);
             }
             usuario.Rol = "Cliente";
-            await _usuarioRepo.AgregarUsuario(usuario);
+            await _usuarioService.AgregarUsuario(usuario);
 
             return RedirectToAction("Login");
         }

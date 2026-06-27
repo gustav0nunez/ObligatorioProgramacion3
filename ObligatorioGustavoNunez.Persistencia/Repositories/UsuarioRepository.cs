@@ -21,29 +21,39 @@ namespace ObligatorioGustavoNunez.Persistencia.Repositories
             dbContext = context;
         }
 
-        public Task<Usuario> Eliminar(int id)
+        public async Task<Usuario> Guardar(Usuario v)
         {
-            throw new NotImplementedException();
+            dbContext.Usuarios.Add(v);
+            await dbContext.SaveChangesAsync();
+            return v;
         }
 
-        public Task<Usuario> Guardar(Usuario v)
+        public async Task<Usuario> Modificar(Usuario v)
         {
-            throw new NotImplementedException();
+            dbContext.Usuarios.Update(v);
+            await dbContext.SaveChangesAsync();
+            return v;
         }
 
-        public Task<Usuario> Modificar(Usuario v)
+        public async Task<Usuario> Eliminar(int id)
         {
-            throw new NotImplementedException();
+            var usuario = await ObtenerPorId(id);
+            if (usuario != null)
+            {
+                dbContext.Usuarios.Remove(usuario);
+                await dbContext.SaveChangesAsync();
+            }
+            return usuario;
         }
 
-        public Task<Usuario> ObtenerPorId(int id)
+        public async Task<Usuario> ObtenerPorId(int id)
         {
-            throw new NotImplementedException();
+            return await dbContext.Usuarios.FirstOrDefaultAsync(u => u.Id == id);
         }
 
-        public Task<List<Usuario>> ObtenerTodos()
+        public async Task<List<Usuario>> ObtenerTodos()
         {
-            throw new NotImplementedException();
+            return await dbContext.Usuarios.ToListAsync();
         }
 
         public async Task<Usuario> ValidarLogin(string email, string contraseña)

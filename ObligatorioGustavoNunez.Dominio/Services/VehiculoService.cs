@@ -12,9 +12,9 @@ namespace ObligatorioGustavoNunez.Dominio.Services
     {
         private readonly IVehiculoRepository vehiculoRepository;
 
-        public VehiculoService(IVehiculoRepository repository)
+        public VehiculoService(IVehiculoRepository vehiculoRepo)
         {
-            vehiculoRepository = repository;
+            vehiculoRepository = vehiculoRepo;
         }
 
         public async Task<Vehiculo> AgregarVehiculo(Vehiculo vehiculo)
@@ -32,12 +32,12 @@ namespace ObligatorioGustavoNunez.Dominio.Services
             return await vehiculoRepository.Eliminar(id);
         }
 
-        public async Task<Vehiculo> ObtenerVehiculo(int id)
+        public async Task<Vehiculo> ObtenerPorId(int id)
         {
             return await vehiculoRepository.ObtenerPorId(id);
         }
 
-        public async Task<List<Vehiculo>> ObtenerVehiculos()
+        public async Task<List<Vehiculo>> ObtenerTodos()
         {
             return await vehiculoRepository.ObtenerTodos();
         }
