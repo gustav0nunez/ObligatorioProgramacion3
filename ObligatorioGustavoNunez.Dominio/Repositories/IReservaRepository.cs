@@ -15,5 +15,7 @@ namespace ObligatorioGustavoNunez.Dominio.Repositories
         Task<Reserva> ObtenerPorId(int id);
 
         Task ModificarReserva(Reserva reserva);
+
+        Task EliminarReserva(int id);
     }
 }

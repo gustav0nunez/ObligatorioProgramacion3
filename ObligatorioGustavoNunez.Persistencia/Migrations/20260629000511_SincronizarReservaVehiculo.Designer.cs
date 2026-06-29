@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ObligatorioGustavoNunez.Persistencia.Data;
 
@@ -11,9 +12,11 @@ using ObligatorioGustavoNunez.Persistencia.Data;
 namespace ObligatorioGustavoNunez.Persistencia.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260629000511_SincronizarReservaVehiculo")]
+    partial class SincronizarReservaVehiculo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,17 +51,17 @@ namespace ObligatorioGustavoNunez.Persistencia.Migrations
                     b.Property<int>("UsuarioId")
                         .HasColumnType("int");
 
-                    b.Property<int>("VehiculoId")
+                    b.Property<int?>("VehiculoId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("VehiculoMatricula")
-                        .HasColumnType("int");
+                    b.Property<string>("VehiculoMatricula")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UsuarioId");
 
-                    b.HasIndex("VehiculoMatricula");
+                    b.HasIndex("VehiculoId");
 
                     b.ToTable("Reservas");
                 });
@@ -155,7 +158,7 @@ namespace ObligatorioGustavoNunez.Persistencia.Migrations
 
                     b.HasOne("ObligatorioGustavoNunez.Dominio.Entities.Vehiculo", "Vehiculo")
                         .WithMany()
-                        .HasForeignKey("VehiculoMatricula");
+                        .HasForeignKey("VehiculoId");
 
                     b.Navigation("Usuario");
 

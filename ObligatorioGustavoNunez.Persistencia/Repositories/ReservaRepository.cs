@@ -46,6 +46,16 @@ namespace ObligatorioGustavoNunez.Persistencia.Repositories
                 .Include(r => r.Vehiculo)
                 .ToListAsync();
         }
+
+        public async Task EliminarReserva(int id)
+        {
+            var reserva = await dbContext.Reservas.FindAsync(id);
+            if (reserva != null)
+            {
+                dbContext.Reservas.Remove(reserva);
+                await dbContext.SaveChangesAsync();
+            }
+        }
     }
 }
 

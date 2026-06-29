@@ -1,0 +1,33 @@
+﻿@model ObligatorioGustavoNunez.Dominio.Entities.Reserva
+
+<h2>Eliminar Reserva</h2>
+
+<h4 class="text-danger">¿Estás seguro de que querés eliminar esta reserva?</h4>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">ID</dt>
+        <dd class="col-sm-10">@Model.Id</dd>
+
+        <dt class="col-sm-2">Vehículo</dt>
+        <dd class="col-sm-10">@(Model.Vehiculo != null ? Model.Vehiculo.Matricula : "N/A")</dd>
+
+        <dt class="col-sm-2">Usuario</dt>
+        <dd class="col-sm-10">@(Model.Usuario != null ? Model.Usuario.Email : "N/A")</dd>
+
+        <dt class="col-sm-2">Fecha Inicio</dt>
+        <dd class="col-sm-10">@Model.FechaInicio.ToShortDateString()</dd>
+
+        <dt class="col-sm-2">Fecha Fin</dt>
+        <dd class="col-sm-10">@Model.FechaFin.ToShortDateString()</dd>
+
+        <dt class="col-sm-2">Estado</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Estado)</dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Confirmar Eliminación</button> |
+        <a asp-action="Index" class="btn btn-secondary">Volver al listado</a>
+    </form>
+</div>

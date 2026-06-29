@@ -26,5 +26,20 @@ namespace ObligatorioGustavoNunez.Dominio.Services
         {
             return await _reservaRepo.ObtenerTodas();
         }
+
+        public async Task<Reserva> ObtenerPorId(int id)
+        {
+            return await _reservaRepo.ObtenerPorId(id);
+        }
+
+        public async Task ModificarReserva(Reserva reserva)
+        {
+             await _reservaRepo.ModificarReserva(reserva);
+        }
+
+        public async Task EliminarReserva(int id)
+        {
+            await _reservaRepo.EliminarReserva(id);
+        }
     }
 }

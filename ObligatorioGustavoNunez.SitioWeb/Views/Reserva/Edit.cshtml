@@ -1,0 +1,56 @@
+﻿@model ObligatorioGustavoNunez.Dominio.Entities.Reserva
+
+<h2>Modificar Reserva</h2>
+
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group mb-3">
+        <label asp-for="UsuarioId" class="control-label">Usuario</label>
+        <select asp-for="UsuarioId" class="form-control" asp-items="ViewBag.Usuarios"></select>
+        <span asp-validation-for="UsuarioId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="VehiculoId" class="control-label">Vehículo</label>
+        <select asp-for="VehiculoId" class="form-control" asp-items="ViewBag.Vehiculos"></select>
+        <span asp-validation-for="VehiculoId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="FechaInicio" class="control-label">Fecha de Inicio</label>
+        <input asp-for="FechaInicio" type="date" class="form-control" />
+        <span asp-validation-for="FechaInicio" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="FechaFin" class="control-label">Fecha de Fin</label>
+        <input asp-for="FechaFin" type="date" class="form-control" />
+        <span asp-validation-for="FechaFin" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="CantidadDePersonas" class="control-label">Cantidad de Personas</label>
+        <input asp-for="CantidadDePersonas" type="number" class="form-control" />
+        <span asp-validation-for="CantidadDePersonas" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Estado" class="control-label">Estado</label>
+        <select asp-for="Estado" class="form-control" asp-items="Html.GetEnumSelectList<ObligatorioGustavoNunez.Dominio.Entities.EstadoReserva>()"></select>
+        <span asp-validation-for="Estado" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Observaciones" class="control-label">Observaciones</label>
+        <textarea asp-for="Observaciones" class="form-control"></textarea>
+        <span asp-validation-for="Observaciones" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-4">
+        <input type="submit" value="Guardar Cambios" class="btn btn-warning" />
+        <a asp-action="Index" class="btn btn-secondary">Volver al listado</a>
+    </div>
+</form>

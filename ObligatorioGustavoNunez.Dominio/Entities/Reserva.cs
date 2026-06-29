@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace ObligatorioGustavoNunez.Dominio.Entities
     {
         Pendiente,
         Confirmada,
+        [Display(Name = "En curso")]
         EnCurso,
         Completada,
         Cancelada
@@ -24,13 +26,15 @@ namespace ObligatorioGustavoNunez.Dominio.Entities
         public DateTime FechaFin { get; set; }
         public int CantidadDePersonas { get; set; }
         public EstadoReserva Estado { get; set; } = EstadoReserva.Pendiente;
-        public string Observaciones { get; set; }
+        public string? Observaciones { get; set; }
 
         public int UsuarioId { get; set; }
-        public Usuario Usuario { get; set; }
+        [ForeignKey("UsuarioId")]
+        public Usuario? Usuario { get; set; }
 
-        public string VehiculoMatricula { get; set; }
-        public Vehiculo Vehiculo { get; set; }
+        public int VehiculoId { get; set; }
+        [ForeignKey("VehiculoId")]
+        public Vehiculo? Vehiculo { get; set; }
 
 
         public void CambiarEstado(EstadoReserva nuevoEstado)
