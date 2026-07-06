@@ -40,11 +40,12 @@
     <div class="form-group mt-2">
         <label>Email (será tu usuario)</label>
         <input asp-for="Email" type="email" class="form-control" required />
+        <span asp-validation-for="Email" class="text-danger" style="color:red;"></span>
     </div>
 
     <div class="form-group mt-2">
         <label>Contraseña</label>
-        <input asp-for="Contraseña" type="password" class="form-control" required />
+        <input asp-for="Contrasena" type="password" class="form-control" required />
     </div>
 
     <button type="submit" class="btn btn-success mt-3">Crear cuenta</button>

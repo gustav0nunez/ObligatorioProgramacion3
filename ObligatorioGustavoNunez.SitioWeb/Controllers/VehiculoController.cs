@@ -13,11 +13,13 @@ namespace ObligatorioGustavoNunez.SitioWeb.Controllers
     {
 
         private readonly VehiculoService _vehiculoService;
+        private readonly ReservaService _reservaService; 
 
 
-            public VehiculoController(VehiculoService vehiculoService)
+            public VehiculoController(VehiculoService vehiculoService, ReservaService reservaService)
         {
             _vehiculoService = vehiculoService;
+            _reservaService = reservaService;
         }
 
         // GET: Vehiculos
@@ -104,9 +106,26 @@ namespace ObligatorioGustavoNunez.SitioWeb.Controllers
         //POST: Vehiculos/Delete/
 
         [HttpPost, ActionName("Delete")]
-        public async Task <IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await _vehiculoService.EliminarVehiculo(id);
+            var vehiculo = await _vehiculoService.ObtenerPorId(id);
+            if (vehiculo == null) return NotFound();
+
+            var reservasDelVehiculo = await _reservaService.ObtenerTodas();
+            bool tieneReservas = reservasDelVehiculo.Any(r => r.VehiculoId == id);
+
+            if (tieneReservas)
+            {
+                vehiculo.Estado = EstadoVehiculo.Inactivo; 
+                await _vehiculoService.ModificarVehiculo(vehiculo);
+                TempData["Exito"] = "El vehículo tiene reservas asociadas, por lo que fue marcado como Inactivo.";
+            }
+            else
+            {
+                await _vehiculoService.EliminarVehiculo(id);
+                TempData["Exito"] = "Vehículo eliminado correctamente.";
+            }
+
             return RedirectToAction(nameof(Index));
         }
     }

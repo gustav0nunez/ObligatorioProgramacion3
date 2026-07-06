@@ -59,13 +59,19 @@ namespace ObligatorioGustavoNunez.Persistencia.Repositories
         public async Task<Usuario> ValidarLogin(string email, string contraseña)
         {
             return await dbContext.Usuarios
-                .FirstOrDefaultAsync(u => u.Email == email && u.Contraseña == contraseña);
+                .FirstOrDefaultAsync(u => u.Email == email && u.Contrasena == contraseña);
         }
 
         public async Task AgregarUsuario(Usuario usuario)
         {
             dbContext.Usuarios.Add(usuario);
             await dbContext.SaveChangesAsync();
+        }
+       
+
+        public async Task<Usuario> ObtenerPorMail(string email)
+        {
+            return await dbContext.Usuarios.FirstOrDefaultAsync(u => u.Email == email);
         }
     }
 }

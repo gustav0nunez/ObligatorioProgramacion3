@@ -26,9 +26,9 @@ namespace ObligatorioGustavoNunez.SitioWeb.Controllers
 
         //POST: Auth/Login
         [HttpPost]
-        public async Task<IActionResult> Login(string email, string contraseña)
+        public async Task<IActionResult> Login(string email, string contrasena)
         {
-            var usuario = await _usuarioService.ValidarLogin(email, contraseña);
+            var usuario = await _usuarioService.ValidarLogin(email, contrasena);
 
             if (usuario == null)
             {
@@ -65,11 +65,21 @@ namespace ObligatorioGustavoNunez.SitioWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> Registrar(Usuario usuario)
         {
+            usuario.Rol = "Cliente";
+            ModelState.Remove("Rol");
+
             if (!ModelState.IsValid)
             {
                 return View(usuario);
             }
-            usuario.Rol = "Cliente";
+
+            var usuarioExistente = await _usuarioService.ObtenerPorEmail(usuario.Email);
+            if (usuarioExistente != null)
+            {
+                ModelState.AddModelError("Email", "Este correo ya está registrado.");
+                return View(usuario);
+            }
+
             await _usuarioService.AgregarUsuario(usuario);
 
             return RedirectToAction("Login");

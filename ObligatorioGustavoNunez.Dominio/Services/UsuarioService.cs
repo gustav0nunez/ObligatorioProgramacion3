@@ -24,5 +24,10 @@ namespace ObligatorioGustavoNunez.Dominio.Services
         public async Task<List<Usuario>> ObtenerTodos() => await _usuarioRepo.ObtenerTodos();
         public async Task<Usuario> ValidarLogin(string email, string contraseña) => await _usuarioRepo.ValidarLogin(email, contraseña);
         public async Task AgregarUsuario(Usuario usuario) => await _usuarioRepo.AgregarUsuario(usuario);
+
+        public async Task<Usuario> ObtenerPorEmail(string email)
+        {
+            return await _usuarioRepo.ObtenerPorMail(email);
+        }
     }
 }

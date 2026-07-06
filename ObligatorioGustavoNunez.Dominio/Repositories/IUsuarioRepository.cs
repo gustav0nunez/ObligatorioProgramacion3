@@ -18,5 +18,7 @@ namespace ObligatorioGustavoNunez.Dominio.Repositories
         Task<Usuario> ObtenerPorId(int id);
         Task<List<Usuario>> ObtenerTodos();
 
+        Task<Usuario> ObtenerPorMail(string email);
+
     }
 }
