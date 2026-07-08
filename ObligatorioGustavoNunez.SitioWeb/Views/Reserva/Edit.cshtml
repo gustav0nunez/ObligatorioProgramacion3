@@ -6,6 +6,7 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="Estado"/>
 
     <div class="form-group mb-3">
         <label asp-for="UsuarioId" class="control-label">Usuario</label>
@@ -35,12 +36,6 @@
         <label asp-for="CantidadDePersonas" class="control-label">Cantidad de Personas</label>
         <input asp-for="CantidadDePersonas" type="number" class="form-control" />
         <span asp-validation-for="CantidadDePersonas" class="text-danger"></span>
-    </div>
-
-    <div class="form-group mb-3">
-        <label asp-for="Estado" class="control-label">Estado</label>
-        <select asp-for="Estado" class="form-control" asp-items="Html.GetEnumSelectList<ObligatorioGustavoNunez.Dominio.Entities.EstadoReserva>()"></select>
-        <span asp-validation-for="Estado" class="text-danger"></span>
     </div>
 
     <div class="form-group mb-3">

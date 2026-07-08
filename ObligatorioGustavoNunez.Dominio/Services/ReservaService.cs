@@ -3,6 +3,7 @@ using ObligatorioGustavoNunez.Dominio.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -40,6 +41,23 @@ namespace ObligatorioGustavoNunez.Dominio.Services
         public async Task EliminarReserva(int id)
         {
             await _reservaRepo.EliminarReserva(id);
+        }
+
+        public async Task<IEnumerable<Reserva>> ObtenerReservasEntreFechas(DateTime fechaInicio, DateTime fechaFin)
+        {
+            var todasLasReservas = await ObtenerTodas();
+
+            return todasLasReservas
+                .Where(r => r.FechaInicio >= fechaInicio && r.FechaFin <= fechaFin)
+                .ToList();
+        }
+
+        public async Task<List<Reserva>> ObtenerPorClienteId(int clienteId)
+        {
+            
+            var todasLasReservas = await _reservaRepo.ObtenerTodas();
+
+            return todasLasReservas.Where(r => r.UsuarioId == clienteId).ToList();
         }
     }
 }

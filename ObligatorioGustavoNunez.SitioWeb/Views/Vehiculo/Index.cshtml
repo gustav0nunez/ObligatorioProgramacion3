@@ -1,6 +1,17 @@
 ﻿@model IEnumerable<ObligatorioGustavoNunez.Dominio.Entities.Vehiculo>
 
-<h2>Flota de Vehículos</h2>
+
+@if (TempData["Exito"] != null)
+{
+    <div class="alert alert-warning">
+        @TempData["Exito"]
+    </div>
+}
+
+<h2>Lista de Vehículos</h2>
+
+
+<a asp-action="Create" class="btn btn-primary mb-3">Nuevo Vehículo</a>
 
 <table class="table table-striped">
     <thead>
@@ -11,6 +22,7 @@
             <th>Capacidad</th>
             <th>Precio Diario</th>
             <th>Estado</th>
+            <th>Acciones</th> 
         </tr>
     </thead>
     <tbody>
@@ -23,6 +35,10 @@
                 <td>@v.CapacidadPasajeros</td>
                 <td>$@v.PrecioDiario</td>
                 <td>@v.Estado</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@v.Id" class="btn btn-warning btn-sm">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@v.Id" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
             </tr>
         }
     </tbody>

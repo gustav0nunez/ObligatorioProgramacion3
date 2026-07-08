@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Resumen Estadístico";
+}
+
+<h2>Resumen Estadístico</h2>
+
+<div class="row mt-4 text-center">
+    <div class="col-md-4">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Reservas Activas</h5>
+                <p class="card-text display-4">@ViewBag.Activas</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-danger mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Reservas Canceladas</h5>
+                <p class="card-text display-4">@ViewBag.Canceladas</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Promedio por Reserva</h5>
+                <p class="card-text display-4">$@Math.Round((double)ViewBag.Promedio, 2)</p>
+            </div>
+        </div>
+    </div>
+</div>

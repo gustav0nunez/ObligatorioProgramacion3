@@ -1,4 +1,5 @@
-﻿using ObligatorioGustavoNunez.Dominio.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using ObligatorioGustavoNunez.Dominio.Entities;
 using ObligatorioGustavoNunez.Dominio.Repositories;
 using System;
 using System.Collections.Generic;
@@ -41,5 +42,14 @@ namespace ObligatorioGustavoNunez.Dominio.Services
         {
             return await vehiculoRepository.ObtenerTodos();
         }
+
+        public async Task<List<Vehiculo>> ObtenerVehiculosActivos()
+        {
+           
+            var todosLosVehiculos = await vehiculoRepository.ObtenerTodos();
+
+            return todosLosVehiculos.Where(v => v.Estado == EstadoVehiculo.Activo).ToList();
+        }
     }
 }
+

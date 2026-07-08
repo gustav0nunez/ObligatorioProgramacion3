@@ -28,9 +28,9 @@ namespace ObligatorioGustavoNunez.SitioWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(string email, string contrasena)
         {
-            var usuario = await _usuarioService.ValidarLogin(email, contrasena);
+            var usuario = await _usuarioService.ObtenerUsuario(email);
 
-            if (usuario == null)
+            if (usuario == null || usuario.Contrasena != contrasena)
             {
                 ViewBag.Error = "Usuario y/o contraseña incorrecta";
                 return View();

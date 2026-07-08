@@ -6,7 +6,7 @@ using ObligatorioGustavoNunez.Dominio.Services;
 
 namespace ObligatorioGustavoNunez.SitioWeb.Controllers
 {
-    //[Authorize(Roles = "Administrador")]
+    [Authorize(Roles = "Administrador")]
     public class ReservaController : Controller
     {
         private readonly ReservaService _reservaService;

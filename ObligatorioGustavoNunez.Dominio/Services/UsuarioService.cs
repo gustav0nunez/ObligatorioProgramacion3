@@ -11,10 +11,32 @@ namespace ObligatorioGustavoNunez.Dominio.Services
     public class UsuarioService
     {
         private readonly IUsuarioRepository _usuarioRepo;
+        private List<Usuario> _usuariosMemoria;
 
         public UsuarioService(IUsuarioRepository usuarioRepo)
         {
             _usuarioRepo = usuarioRepo;
+            CargarUsuarios();
+        }
+
+        private void CargarUsuarios()
+        {
+            _usuariosMemoria = new List<Usuario>()
+            {
+                new Usuario() { Email = "admin@ctcsalto.com", Contrasena = "admin123", Rol = "Administrador" },
+                new Usuario() { Email = "operador@ctcsalto.com", Contrasena = "operador123", Rol = "Operador" }
+            };
+        }
+
+        public async Task<Usuario> ObtenerUsuario(string email)
+        {
+            var usuarioMemoria = _usuariosMemoria.FirstOrDefault(u => u.Email == email);
+            if (usuarioMemoria != null)
+            {
+                return usuarioMemoria;
+            }
+
+            return await _usuarioRepo.ObtenerPorMail(email);
         }
 
         public async Task<Usuario> Guardar(Usuario v) => await _usuarioRepo.Guardar(v);
