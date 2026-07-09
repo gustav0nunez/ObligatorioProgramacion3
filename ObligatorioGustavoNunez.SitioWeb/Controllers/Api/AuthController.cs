@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using ObligatorioGustavoNunez.Dominio.Entities;
+using ObligatorioGustavoNunez.Dominio.DTOs;
 using ObligatorioGustavoNunez.Dominio.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -24,22 +24,29 @@ namespace ObligatorioGustavoNunez.SitioWeb.Controllers.Api
         [HttpPost("login")]
         public async Task<IActionResult> LoginApi([FromBody] LoginDto login)
         {
-            var usuEncontrado = await _usuarioService.ValidarLogin(login.Email, login.Password);
-
-            if (usuEncontrado != null)
+            try
             {
-                var claims = new List<Claim>
+                var usuEncontrado = await _usuarioService.ValidarLogin(login.Email, login.Password);
+
+                if (usuEncontrado != null)
+                {
+                    var claims = new List<Claim>
         {
             new Claim(ClaimTypes.Name, usuEncontrado.Email),
             new Claim(ClaimTypes.Role, usuEncontrado.Rol)
         };
 
-                var token = GenerateJwtToken(claims);
+                    var token = GenerateJwtToken(claims);
 
-                return Ok(new { token = token });
+                    return Ok(new { token = token });
+                }
+
+                return Unauthorized(new { error = "Credenciales inválidas" });
             }
-
-            return Unauthorized(new { error = "Credenciales inválidas" });
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = ex.Message });
+            }
         }
 
         private string GenerateJwtToken(IEnumerable<Claim> claims)
@@ -59,9 +66,5 @@ namespace ObligatorioGustavoNunez.SitioWeb.Controllers.Api
         }
     }
 
-    public class LoginDto
-    {
-        public string Email { get; set; }
-        public string Password { get; set; }
-    }
+   
 }

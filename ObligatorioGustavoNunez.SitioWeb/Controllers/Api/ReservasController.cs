@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ObligatorioGustavoNunez.Dominio.DTOs;
+using ObligatorioGustavoNunez.Dominio.Entities;
 using ObligatorioGustavoNunez.Dominio.Services;
 
 namespace ObligatorioGustavoNunez.SitioWeb.Controllers.Api
@@ -25,5 +27,55 @@ namespace ObligatorioGustavoNunez.SitioWeb.Controllers.Api
             return Ok(reservas);
 
         }
+
+        [HttpPatch("estado")]
+        public async Task<IActionResult> ActualizarEstado([FromBody] ActualizarEstadoReservaDto dto)
+        {
+            try
+            {
+                await _reservaService.ActualizarEstado(dto);
+
+                return Ok(new { exitoso = true, mensaje = "Estado actualizado correctamente." });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CrearReserva([FromBody] CrearReservaDto dto)
+        {
+            try
+            {
+                var nuevaReserva = await _reservaService.CrearReserva(dto);
+
+                return CreatedAtAction(nameof(GetReservasPorCliente), new { id = nuevaReserva.UsuarioId }, nuevaReserva);
+            }
+            catch (DomainException ex) when (ex.Message.Contains("disponible"))
+            {
+                return Conflict(new { error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+        }
+
+        [HttpGet("/api/reportes/resumen")]
+        public async Task<IActionResult> ObtenerResumen()
+        {
+            try
+            {
+                var resumen = await _reservaService.ObtenerResumen();
+                return Ok(resumen);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = ex.Message });
+            }
+        }
+
+
     }
 }
